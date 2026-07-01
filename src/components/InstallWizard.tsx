@@ -1111,7 +1111,7 @@ export default function InstallWizard() {
 
   // ─────────────────────────────────────────────────────────────────────────────
   // RENDER
-  // ─────────────────────────────────────────��───────────────────────────────────
+  // ─────────────────────────────────────────���───────────────────────────────────
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 to-amber-50 p-4">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg p-8">
@@ -1119,7 +1119,7 @@ export default function InstallWizard() {
         {/* Step indicator */}
         <StepDots total={8} current={currentStep} />
 
-        {/* ── STEP 1 — Welcome ────────────────�����───────────────────────────── */}
+        {/* ── STEP 1 — Welcome ────────────────������───────────────────────────── */}
         {currentStep === 1 && (
           <div className="flex flex-col items-center text-center gap-7">
             {/* Logo mark */}
@@ -1230,9 +1230,9 @@ export default function InstallWizard() {
               <button type="button" className="text-xs text-gray-400 underline mt-1" onClick={() => { setBackend(null); setSbTest({ status:'idle', message:'' }); setCurrentStep(2) }}>← Change backend</button>
             </div>
             <details className="text-xs text-gray-600 bg-emerald-50 border border-emerald-200 rounded-xl overflow-hidden">
-              <summary className="cursor-pointer font-semibold text-emerald-800 px-4 py-3 flex items-center justify-between hover:bg-emerald-100 transition-colors">
-                <span>📋 Supabase Setup — click to expand &amp; copy</span>
-                <span className="text-[10px] font-normal text-emerald-600">SQL Editor → New query → paste → Run</span>
+              <summary className="cursor-pointer font-semibold text-emerald-800 px-4 py-3 flex items-center justify-between gap-3 hover:bg-emerald-100 transition-colors">
+                <span className="whitespace-nowrap">📋 Supabase SQL Setup — click to copy</span>
+                <span className="text-[10px] font-normal text-emerald-600 whitespace-nowrap">SQL Editor → paste → Run</span>
               </summary>
               <div className="px-4 pb-4 pt-2">
                 <div className="relative">
