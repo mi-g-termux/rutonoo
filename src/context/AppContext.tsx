@@ -735,16 +735,18 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
       await new Promise((r) => setTimeout(r, 120));
 
       // Batch 3: Secondary settings + newsletter (least urgent)
-      const [subs, supp, smsSet, evSet] = await Promise.all([
+      const [subs, supp, smsSet, evSet, courierSet] = await Promise.all([
         dbService.getNewsletterSubscribers(),
         dbService.getSupportSettings(),
         dbService.getSMSSettings(),
         dbService.getEmailVerificationSettings(),
+        dbService.getCourierSettings(),
       ]);
       setNewsletterSubscribers(subs);
       setSupportSettings(supp);
       setSMSSettings(smsSet);
       setEmailVerificationSettings(evSet);
+      if (courierSet) setCourierSettings(courierSet);
     } catch (err) {
       console.error('[AppContext] Critical error in loadData:', err);
     } finally {
@@ -1926,7 +1928,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   // ─────────────────────────────────────────────────────────────────────────
   //  PRODUCT / CATEGORY / ORDER ACTIONS (engine-agnostic via dbService)
-  // ─────────────────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────���───────────────
 
   const addProduct = async (product: Product) => {
     await dbService.saveProduct(product);
@@ -1986,7 +1988,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const autoCourierDispatch = async (order: Order, trigger: string) => {
     try {
       const cs = courierSettings;
-      if (!cs.enabled || cs.activeProvider === 'none' || cs.trigger !== trigger) return;
+      if (!cs || !cs.enabled || cs.activeProvider === 'none' || cs.trigger !== trigger) return;
       const isCod = order.paymentStatus === 'Pending';
       const codAmt = isCod ? order.total : 0;
       const payload = buildCourierPayload(order, codAmt);

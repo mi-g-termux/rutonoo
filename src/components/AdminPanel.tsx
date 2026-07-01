@@ -177,13 +177,14 @@ export const AdminPanel: React.FC = () => {
   // Courier settings local state
   const [dispatchingOrderId, setDispatchingOrderId] = React.useState<string | null>(null);
   const [dispatchResult, setDispatchResult] = React.useState<Record<string, { ok: boolean; msg: string }>>({});
-  const [localCourier, setLocalCourier] = useState(() => courierSettings);
+  const DEFAULT_COURIER_STATE = { enabled: false, activeProvider: 'none' as const, trigger: 'manual' as const };
+  const [localCourier, setLocalCourier] = useState(() => courierSettings ?? DEFAULT_COURIER_STATE);
   const [courierSaving, setCourierSaving] = useState(false);
 
  useEffect(() => {
  if (settingsSection ==='delivery') {
  setLocalZones(deliveryZones);
-      setLocalCourier(courierSettings);
+      setLocalCourier(courierSettings ?? DEFAULT_COURIER_STATE);
  }
  // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [settingsSection]);
@@ -2659,7 +2660,7 @@ payFastLogoImageUrl: brandPayFastLogo,
  className="p-1.5 hover:text-rose-605 border border-slate-200 rounded-md cursor-pointer ml-2 bg-slate-50 text-slate-400 hover:border-rose-100"
  title="Purge transaction history row"
  > <Trash2 className="w-3.5 h-3.5" /> </button>
- {courierSettings.enabled && courierSettings.activeProvider !== 'none' && (
+ {courierSettings?.enabled && courierSettings?.activeProvider !== 'none' && (
    <button
      onClick={async () => {
        setDispatchingOrderId(o.id);
@@ -2688,7 +2689,7 @@ payFastLogoImageUrl: brandPayFastLogo,
        } finally { setDispatchingOrderId(null); }
      }}
      disabled={dispatchingOrderId === o.id}
-     title={`Manually dispatch order to ${courierSettings.activeProvider}`}
+     title={`Manually dispatch order to ${courierSettings?.activeProvider}`}
      className="flex items-center gap-1 px-2.5 py-1 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 text-[10px] font-bold rounded-lg cursor-pointer transition-colors disabled:opacity-50 ml-1"
    >
      {dispatchingOrderId === o.id ? <span className="inline-block w-3 h-3 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" /> : <span>🚚</span>}
@@ -4190,9 +4191,9 @@ payFastLogoImageUrl: brandPayFastLogo,
       </div>
       <div
         onClick={() => setLocalCourier(p => ({ ...p, enabled: !p.enabled }))}
-        className={`relative w-12 h-6 rounded-full transition-colors cursor-pointer ${localCourier.enabled ? 'bg-blue-600' : 'bg-slate-300'}`}
+        className={`relative w-12 h-6 rounded-full transition-colors cursor-pointer ${localCourier?.enabled ? 'bg-blue-600' : 'bg-slate-300'}`}
       >
-        <div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${localCourier.enabled ? 'translate-x-7' : 'translate-x-1'}`} />
+        <div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${localCourier?.enabled ? 'translate-x-7' : 'translate-x-1'}`} />
       </div>
     </div>
 
