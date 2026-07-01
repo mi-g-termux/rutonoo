@@ -1119,7 +1119,7 @@ export default function InstallWizard() {
         {/* Step indicator */}
         <StepDots total={8} current={currentStep} />
 
-        {/* ── STEP 1 — Welcome ─────────────────���───────────────────────────── */}
+        {/* ── STEP 1 — Welcome ────────────────�����───────────────────────────── */}
         {currentStep === 1 && (
           <div className="flex flex-col items-center text-center gap-7">
             {/* Logo mark */}
@@ -1234,8 +1234,7 @@ export default function InstallWizard() {
                 <span>📋 Supabase Setup — click to expand &amp; copy</span>
                 <span className="text-[10px] font-normal text-emerald-600">SQL Editor → New query → paste → Run</span>
               </summary>
-              <div className="px-4 pb-4 pt-2 space-y-2">
-                <p className="text-[11px] text-emerald-700">Open <a href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Supabase Dashboard → SQL Editor → New query</a>, paste everything below, click <strong>Run</strong>. Done!</p>
+              <div className="px-4 pb-4 pt-2">
                 <div className="relative">
                   <pre id="sb-sql-all" className="bg-slate-900 text-emerald-300 text-[10px] font-mono p-3 rounded overflow-x-auto max-h-60 select-all whitespace-pre">{`-- ══════════════════════════════════════════════════
 --  PART 1 — Tables, Grants & RLS policies
